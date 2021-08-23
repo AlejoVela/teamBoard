@@ -13,6 +13,7 @@ app.use(cors());
 app.use("/api/role", Role);
 app.use("/api/user", User);
 app.use("/api/board", Board);
+app.use("/uploads", express.static("uploads")); //con esto indicamos que use y vuelva publica la carpeta uploads
 
 app.listen(process.env.PORT, () =>
   console.log("Backend server running on port: " + process.env.PORT)

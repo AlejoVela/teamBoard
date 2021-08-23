@@ -27,7 +27,39 @@ const listTask = async (req, res) => {
   return res.status(200).send({ board });
 };
 
-const saveTaskImg = async (req, res) => {};
+const saveTaskImg = async (req, res) => {
+  if (!req.body.name || !req.body.description)
+    return res.status(400).send("Incomplete data");
+
+  console.log(req.files); //eliminar
+  let imageUrl = ""; //http://localhost:3001/uploads/123124.jpg
+  if (req.files !== undefined && req.files.image.type) {
+    //req.protocol nos devuelve el protocolo que estamos usando, es decir el http
+    //req.get("host") nos devuelve el host en el que estamos y el puerto usado
+    //manejamos de esta forma debido a que el protocolo y host pueden cambiar
+    //https://localhost:3001/  <-- hasta aquí queda el enlace
+    let url = req.protocol + "://" + req.get("host") + "/";
+    //path.extname(req.files.image.path) saca la extension del archivo, path maneja rutas indiferentemente del SO
+    //uploads/123456.jpg       <-- se saca esta parte del enlace
+    let serverImg = "./uploads/" + moment().unix() + path.extname(req.files.image.path);
+    //le decemos que saque la imagen de la ruta req.files.image.path y lo escriba o guarde en la carpeta
+    fs.createReadStream(req.files.image.path).pipe(fs.createWriteStream(serverImg));
+    imageUrl = url + serverImg.slice(2); //se puede usar .slice para cortar el ./ del la ruta
+    console.log(imageUrl);
+  }
+
+  let board = new Board({
+    userId: req.user._id,
+    name: req.body.name,
+    description: req.body.description,
+    taskStatus: "to-do",
+    imageUrl: imageUrl,
+  });
+
+  let result = await board.save();
+  if (!result) return res.status(400).send("Error registering task");
+  return res.status(200).send({ result });  
+};
 
 const updateTask = async (req, res) => {
   let validId = mongoose.Types.ObjectId.isValid(req.body._id);
