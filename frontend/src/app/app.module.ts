@@ -23,7 +23,20 @@ import { BoardService } from './services/board.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
 //guards
-import { AuthGuard } from "./guard/auth.guard";
+import { AuthGuard } from './guard/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; //para los formularios que hagamos en la app
+import { HttpClientModule } from '@angular/common/http'; //intalamos para manejar el protocolo http
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 
 @NgModule({
   declarations: [
@@ -41,8 +54,27 @@ import { AuthGuard } from "./guard/auth.guard";
     ListRoleComponent,
     UpdateRoleComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [UserService, RoleService, BoardService, TokenInterceptorService, AuthGuard],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatSnackBarModule,
+  ],
+  providers: [
+    UserService,
+    RoleService,
+    BoardService,
+    TokenInterceptorService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
