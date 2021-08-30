@@ -20,7 +20,7 @@
     <a *ngIf="!_userService.loggedIn()" mat-button routerLink="login">
       Login
     </a>
-    <a (click)="logout()" *ngIf="_userService.loggedIn()" mat-button>
+    <a (click)="_userService.logout()" *ngIf="_userService.loggedIn()" mat-button>
       Logout
     </a>
   </ul>
