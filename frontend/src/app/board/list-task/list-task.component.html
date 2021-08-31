@@ -1,4 +1,4 @@
-<div class="bgComponent">
+<div class="bgComponent overflow-auto">
   <div class="accordion_display">
     <div class="accordion_size">
       <mat-accordion multi="true" *ngIf="taskData.length">
@@ -33,6 +33,13 @@
           <mat-panel-description>
             {{ task.description }}
           </mat-panel-description>
+
+          <img
+            class="card-img-top image_center w-100"
+            mat-card-image
+            src="{{ task.imageUrl }}"
+          />
+
           <mat-action-row>
             <button
               class="btnSelectTodo"
